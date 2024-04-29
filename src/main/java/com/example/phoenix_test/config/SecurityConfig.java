@@ -1,5 +1,6 @@
 package com.example.phoenix_test.config;
 
+import com.example.phoenix_test.exception.CustomLogoutHandler;
 import com.example.phoenix_test.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

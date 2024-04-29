@@ -18,7 +18,6 @@ import java.util.function.Function;
 public class JwtService {
 
     @Value("${jwt.secret}") String SECRET_KEY;
-    @Value("${jwt.lifetime}") String lifetime;
 
     private final TokenRepository tokenRepository;
 
@@ -70,7 +69,7 @@ public class JwtService {
                 .builder()
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + lifetime ))
+                .expiration(new Date(System.currentTimeMillis() + 86400000 ))
                 .signWith(getSigninKey())
                 .compact();
 

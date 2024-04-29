@@ -1,6 +1,8 @@
 package com.example.phoenix_test.service;
 
-import com.example.phoenix_test.entity.AuthenticationResponse;
+import com.example.phoenix_test.dto.AuthenticationResponse;
+import com.example.phoenix_test.dto.LoginRequest;
+import com.example.phoenix_test.dto.RegistrationRequest;
 import com.example.phoenix_test.entity.Token;
 import com.example.phoenix_test.entity.User;
 import com.example.phoenix_test.repository.TokenRepository;
@@ -27,7 +29,7 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(User request) {
+    public AuthenticationResponse register(RegistrationRequest request) {
 
         if(repository.findByUsername(request.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, "User already exist");
@@ -50,32 +52,20 @@ public class AuthenticationService {
 
     }
 
-    public AuthenticationResponse authenticate(User request) throws AuthException {
+    public AuthenticationResponse authenticate(LoginRequest request) throws AuthException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-//        final User user = userService.findByUsername(request.getUsername())
-//                .orElseThrow(() -> new AuthException("Пользователь не найден"));
+        User user = userService.findByUsername(request.getUsername()).orElseThrow();
+        String jwt = jwtService.generateToken(user);
 
-        User user = repository.findByUsername(request.getUsername())
-                .orElseThrow(()-> new AuthException("Пользователь не найден"));
-        if (user.getPassword().equals(request.getPassword())) {
-            String jwt = jwtService.generateToken(user);
-            revokeAllTokenByUser(user);
-            saveUserToken(jwt, user);
-            return new AuthenticationResponse(jwt, "User login was successful");
-        }else {
-            throw new AuthException("Неправильный пароль");
-        }
-//        String jwt = jwtService.generateToken(user);
+        revokeAllTokenByUser(user);
+        saveUserToken(jwt, user);
 
-//        revokeAllTokenByUser(user);
-//        saveUserToken(jwt, user);
-
-//        return new AuthenticationResponse(jwt, "User login was successful");
+        return new AuthenticationResponse(jwt, "User login was successful");
 
     }
     private void revokeAllTokenByUser(User user) {

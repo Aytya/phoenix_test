@@ -20,6 +20,6 @@ public class News {
     private Date created_at;
 
 
-    @OneToMany(mappedBy = "news")
+    @OneToMany(mappedBy = "news", fetch = FetchType.EAGER)
     private List<UserRequest> userRequests;
 }

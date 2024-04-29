@@ -1,5 +1,6 @@
 package com.example.phoenix_test.service;
 
+import com.example.phoenix_test.dto.UserRequestDto;
 import com.example.phoenix_test.entity.User;
 import com.example.phoenix_test.entity.News;
 import com.example.phoenix_test.entity.UserRequest;
@@ -19,13 +20,12 @@ public class UserRequestsService {
 
     private final UserRequestRepository userRequestRepository;
     private final UserRepository userRepository;
-    private final NewsRepository newsRepository;
 
     public List<UserRequest> getAllUserRequests() {
         return userRequestRepository.findAll();
     }
 
-    public UserRequest createUserRequest(UserRequest request,  Long userId) {
+    public UserRequest createUserRequest(UserRequestDto request, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
         UserRequest userRequest = new UserRequest();

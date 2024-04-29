@@ -1,14 +1,11 @@
-server:
-  port: 8090
 jwt:
   secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
-  lifetime: 10m
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/phoenix
-    username: postgres
-    password: 7212Hey)
-    driver-class-name: org.postgresql.Driver
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/phoenix
+#    username: postgres
+#    password: 7212Hey)
+#    driver-class-name: org.postgresql.Driver
   docker:
     compose:
       enabled: false
@@ -20,3 +17,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
