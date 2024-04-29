@@ -1,6 +1,8 @@
 ## DOCKER
 docker-compose up --build   
 
+![Alt Text](https://drive.google.com/uc?id=1h6pdFOrVyxICBFgwH_wKIbyBIx3--r8A)
+
 ## Registration
 
 ![Alt Text](https://drive.google.com/uc?id=1FULX3VSU9IgVzyikPfBhT2fSNpmTJiMd)
